@@ -1,10 +1,28 @@
+const theme = require("tailwindcss/defaultTheme");
 module.exports = {
+  mode: "jit",
   content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['"Open Sans"', ...theme.fontFamily.sans],
+        montserrat: ['"Montserrat"', ...theme.fontFamily.sans],
+      },
+      colors: {
+        "primary-light": "#99c0ea",
+        "primary-dark": "#3279c7",
+        blueish: {
+          100: "#e6f8f9",
+          200: "#b1e8ed",
+        },
+      },
+     
+    },
+  },
+  variants: {
   },
   plugins: [],
-}
+};
