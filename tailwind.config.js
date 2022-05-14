@@ -14,8 +14,8 @@ module.exports = {
       colors: {
         "primary-light": "#99c0ea",
         "primary-dark": "#3279c7",
-        blueish: {
-          100: "#e6f8f9",
+        grayBar: {
+          100: "#c8d1dc",
           200: "#b1e8ed",
         },
       },

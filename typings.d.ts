@@ -6,3 +6,9 @@ export interface Cards{
     date:string;
     type:string;
 }
+
+export interface Dropdown{
+    id:number;
+    title:string;
+    body:string[];
+}
