@@ -2,7 +2,7 @@ import {v4 as uuidv4} from 'uuid'
 const mockData=[
  { 
       id:uuidv4(),
-     title:'to do',
+     title:'Up Next',
      tasks:[
          {
              id:uuidv4(),
@@ -20,7 +20,7 @@ const mockData=[
 },
 { 
     id:uuidv4(),
-   title:'In progress',
+   title:'Teams',
    tasks:[
        {
            id:uuidv4(),
@@ -38,7 +38,7 @@ const mockData=[
 },
 { 
     id:uuidv4(),
-   title:'Completed',
+   title:'Current Projects',
    tasks:[
        {
            id:uuidv4(),

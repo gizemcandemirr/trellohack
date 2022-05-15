@@ -1,11 +1,12 @@
 import Head from 'next/head'
 import AppBar from '../components/bar/AppBar'
+import BoardBar from '../components/bar/BoardBar'
 import Kanban from '../components/kanban'
 
 function Home() {
  
   return (
-    <div className=" w-full bg-primary-light">
+    <div className=" w-screen-7xl min-h-screen bg-hero bg-no-repeat bg-cover	">
       <Head>
         <title>Trello Hack</title>
         <link rel="icon" href="/favicon.ico" />
@@ -16,7 +17,17 @@ function Home() {
         <AppBar/>
 
         {/* board */}
-        <Kanban/>
+        <div >
+          {/* bar */}
+          <div>
+            <BoardBar/>
+          </div>
+          {/* card kısmı */}
+          <div className='p-4'>
+            <Kanban/>
+          </div>
+        </div>
+        
     
     </div>
   )

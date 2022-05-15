@@ -29,9 +29,9 @@ const AppBar = () => {
         <div className='flex items-center space-x-2 p-2'>
              {/* search */}
              <div className="flex justify-center">
-  <div className="xl:w-96">
-    <input
-      type="search"
+             <div className="xl:w-96">
+             <input
+             type="search"
       className="
         form-control
         block
@@ -52,16 +52,14 @@ const AppBar = () => {
       focus:border-blue-600 focus:outline-none
       "
       placeholder="Type query"
-    />
-  </div>
-             </div>
+           />
+        </div>
+        </div>
 
          <div className='text-gray-600'><InformationCircleIcon width={20} height={20} /></div>
          <div className='text-gray-600' ><BellIcon width={20} height={20} /></div>
          <div className='pr-5'><img src="/picturee.png" width={40} height={30} className="rounded-full"/></div>   
-        </div>
-        
-
+        </div>       
         
     </div>
   )

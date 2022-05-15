@@ -1,6 +1,12 @@
 import mockData from '../../mockData'
 import { useEffect, useState } from 'react'
 import Card from '../card/index'
+import { DotsHorizontalIcon} from '@heroicons/react/outline'
+import {
+    PlusIcon,
+    DuplicateIcon,
+  } from '@heroicons/react/outline'
+
 import dynamic from 'next/dynamic';
 const DragDropContext = dynamic(
   () => import('react-beautiful-dnd').then(mod => {
@@ -49,26 +55,37 @@ const Kanban = () => {
             setData(data)
         }
     }
-
+    const [showNew, setShowNew] =useState(false)
+    const handleAdd = () => {
+        setShowNew(!showNew)
+    }
+    const handleSave = () => {
+        setShowNew(!showNew)
+    }
     return (
         <DragDropContext onDragEnd={onDragEnd} >
-            <div className='flex space-x-4' >
+ <>
+  <div className='flex space-x-4 ' >
                 {
-                    data.map(section => (
+                    data.map((section,index) => (
                         <Droppable
                             key={section.id}
                             droppableId={section.id}
+                            index={index}
                         >
-                            {(provided:any) => (
+                            {(provided) => (
                                 <div
-                                    {...provided.droppableProps}
-                                    
                                     ref={provided.innerRef}
-                                >
-                                    <div className='bg-violet-200 font-bold' >
-                                        {section.title}
+                                    {...provided.droppableProps}
+                                    {...provided.dragHandleProps}
+                                   className="bg-grayBar-200 cursor-pointer" >
+
+                                    <div className='font-bold flex justify-between space-x-6 items-center p-2' >
+                                        <span>   {section.title}</span>
+                                        <span><DotsHorizontalIcon width={16} height={16}/></span>
+                                      
                                     </div>
-                                    <div >
+                                    <div > 
                                         {
                                             section.tasks.map((task, index) => (
                                                 <Draggable
@@ -89,19 +106,45 @@ const Kanban = () => {
                                                             <Card>
                                                                 {task.title}
                                                             </Card>
+
                                                         </div>
+                                                        
+                                                        
+                                                        
                                                     )}
                                                 </Draggable>
                                             ))
                                         }
                                         {provided.placeholder}
                                     </div>
+                                    <div className="mt-5 flex h-fit justify-between items-center rounded-md text-gray-400 space-x-6">
+                                                            {showNew ? (<div className='flex flex-col '>
+                                                              <input type="text" className='h-12'/>
+                                                              <div className='space-x-4'>
+                                                              <button onClick={handleSave}>Save</button>
+                                                              <button className='text-red-500' onClick={()=>setShowNew(!showNew)}>x</button>
+                                                              </div>
+                                                                 
+                                                          </div>) :
+                                                          <button className="flex items-center" onClick={handleAdd}>
+                                                              <PlusIcon width={24} height={24} />
+                                                              Add a card
+                                                            </button>
+                                                          }
+                                                  
+                                                            <button>
+                                                              <DuplicateIcon width={24} height={24} />
+                                                            </button>
+                                                          </div>
                                 </div>
-                            )}
+                       )}
                         </Droppable>
                     ))
                 }
+                
             </div>
+           
+ </>          
         </DragDropContext>
     )
 }
