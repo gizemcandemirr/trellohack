@@ -10,24 +10,23 @@ import {
 import dynamic from 'next/dynamic';
 import { useAppDispatch, useAppSelector } from '../../store'
 import todoSlice, { add } from '../../features/todoSlice'
+import { DropResult, ResponderProvided } from 'react-beautiful-dnd'
 const DragDropContext = dynamic(
-  () => import('react-beautiful-dnd').then(mod => {
+  () => import('react-beautiful-dnd' as any).then(mod => {
       return mod.DragDropContext;
     }),
   {ssr: false},
 );
 const Droppable = dynamic(
   () =>
-    import('react-beautiful-dnd').then(mod => {
+    import('react-beautiful-dnd' as any).then(mod => {
       return mod.Droppable;
     }),
   {ssr: false},
 );
-const Draggable = dynamic(
-  () => import('react-beautiful-dnd').then(mod => {
-      return mod.Draggable;
-    }),
-  {ssr: false},
+const Draggable = dynamic(() => import('react-beautiful-dnd' as any).then(mod => {return mod.Draggable;}),
+{ ssr: false }
+  
 );
 
 const Kanban = () => {
@@ -36,7 +35,7 @@ const Kanban = () => {
     const [title,setTitle] =useState("");
     const todos=useAppSelector(state=> state.todos)
 
-    const onDragEnd = (result:any) => {
+    const onDragEnd = (result: DropResult ) => {
         if (!result.destination) return
         const { source, destination } = result
 
@@ -74,12 +73,11 @@ const Kanban = () => {
   <div className='flex space-x-4 ' >
                 {
                     data.map((section,index) => (
-                        <Droppable
+                        <Droppable droppableId={section.id}
                             key={section.id}
-                            droppableId={section.id}
                             index={index}
                         >
-                            {(provided) => (
+                            {(provided:any) => (
                                 <div
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
@@ -99,7 +97,7 @@ const Kanban = () => {
                                                     draggableId={task.id}
                                                     index={index}
                                                 >
-                                                    {(provided, snapshot) => (
+                                                    {(provided:any, snapshot:any) => (
                                                         <>
                                                          <div
                                                             ref={provided.innerRef}
