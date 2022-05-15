@@ -100,7 +100,8 @@ const Kanban = () => {
                                                     index={index}
                                                 >
                                                     {(provided, snapshot) => (
-                                                        <div
+                                                        <>
+                                                         <div
                                                             ref={provided.innerRef}
                                                             {...provided.draggableProps}
                                                             {...provided.dragHandleProps}
@@ -110,40 +111,44 @@ const Kanban = () => {
                                                             }}
                                                         >
                                                             <Card>
-                                                                {task.title}
+                                                            {todos.map((todo,i)=> <li key={i}>{todo.title}</li>)}
                                                             </Card>
 
                                                         </div>
                                                         
-                                                        
+                                                        </>
+                                                       
                                                         
                                                     )}
                                                 </Draggable>
+                                                
                                             ))
                                         }
                                         {provided.placeholder}
-                                        <div className="mt-5 flex h-fit justify-between items-center rounded-md text-gray-400 space-x-6">
-                                                            {showNew ? (<div className='flex flex-col '>
-                                                              <input type="text" className='h-12' value={title} onChange={(e)=> setTitle(e.currentTarget.value)} />
-                                                              <div className='space-x-4'>
-                                                              <button onClick={handleSave}>Save</button>
-                                                              <button className='text-red-500' onClick={()=>setShowNew(!showNew)}>x</button>
-                                                              </div>
-                                                              <ul>{todos.map(todo=> <li>{todo.title}</li>)}</ul>
-                                                                 
-                                                          </div>) :
-                                                          <button className="flex items-center" onClick={handleAdd}>
-                                                              <PlusIcon width={24} height={24} />
-                                                              Add a card
-                                                            </button>
-                                                          }
-                                                  
-                                                            <button>
-                                                              <DuplicateIcon width={24} height={24} />
-                                                            </button>
-                                                          </div>
+                                        
+                                     
                                     </div>
                                    
+                                        <div className="mt-5 flex h-fit justify-between items-center rounded-md text-gray-400 space-x-6">
+                                                        {showNew ? (<div className='flex flex-col '>
+                                                          <input type="text" className='h-12' value={title} onChange={(e)=> setTitle(e.currentTarget.value)} />
+                                                          <div className='space-x-4'>
+                                                          <button onClick={handleSave}>Save</button>
+                                                          <button className='text-red-500' onClick={()=>setShowNew(!showNew)}>x</button>
+                                                          </div>
+                                                          <ul>{todos.map((todo,i)=> <li key={i}>{todo.title}</li>)}</ul>
+                                                             
+                                                      </div>) :
+                                                      <button className="flex items-center" onClick={handleAdd}>
+                                                          <PlusIcon width={24} height={24} />
+                                                          Add a card
+                                                        </button>
+                                                      }
+                                              
+                                                        <button>
+                                                          <DuplicateIcon width={24} height={24} />
+                                                        </button>
+                                                      </div>
                                 </div>
                        )}
                         </Droppable>
