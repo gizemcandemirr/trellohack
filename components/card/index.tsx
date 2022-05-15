@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 const Card = (props) => {
 
   return (
-    <div className=" w-full rounded border bg-grayBar-200 p-2 shadow-xl">
-       <div className='bg-white h-12 p-2 rounde-xl w-full'>
+    <div className="rounded border p-2 shadow-xl bg-white mb-2 mt-2">
+      
          {props.children}
-      </div> 
+    
    
     </div>
   )

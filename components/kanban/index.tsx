@@ -8,6 +8,8 @@ import {
   } from '@heroicons/react/outline'
 
 import dynamic from 'next/dynamic';
+import { useAppDispatch, useAppSelector } from '../../store'
+import todoSlice, { add } from '../../features/todoSlice'
 const DragDropContext = dynamic(
   () => import('react-beautiful-dnd').then(mod => {
       return mod.DragDropContext;
@@ -31,6 +33,8 @@ const Draggable = dynamic(
 const Kanban = () => {
     const [data, setData] = useState(mockData)
     const [isBrowser, setIsBrowser] = useState(false);
+    const [title,setTitle] =useState("");
+    const todos=useAppSelector(state=> state.todos)
 
     const onDragEnd = (result:any) => {
         if (!result.destination) return
@@ -59,8 +63,10 @@ const Kanban = () => {
     const handleAdd = () => {
         setShowNew(!showNew)
     }
+    const dispatch=useAppDispatch();
     const handleSave = () => {
-        setShowNew(!showNew)
+        dispatch(add(title));
+        setTitle("");
     }
     return (
         <DragDropContext onDragEnd={onDragEnd} >
@@ -78,9 +84,9 @@ const Kanban = () => {
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
                                     {...provided.dragHandleProps}
-                                   className="bg-grayBar-200 cursor-pointer" >
+                                   className="bg-grayBar-200 cursor-pointer p-6" >
 
-                                    <div className='font-bold flex justify-between space-x-6 items-center p-2' >
+                                    <div className='font-bold flex justify-between space-x-6 items-center ' >
                                         <span>   {section.title}</span>
                                         <span><DotsHorizontalIcon width={16} height={16}/></span>
                                       
@@ -116,14 +122,14 @@ const Kanban = () => {
                                             ))
                                         }
                                         {provided.placeholder}
-                                    </div>
-                                    <div className="mt-5 flex h-fit justify-between items-center rounded-md text-gray-400 space-x-6">
+                                        <div className="mt-5 flex h-fit justify-between items-center rounded-md text-gray-400 space-x-6">
                                                             {showNew ? (<div className='flex flex-col '>
-                                                              <input type="text" className='h-12'/>
+                                                              <input type="text" className='h-12' value={title} onChange={(e)=> setTitle(e.currentTarget.value)} />
                                                               <div className='space-x-4'>
                                                               <button onClick={handleSave}>Save</button>
                                                               <button className='text-red-500' onClick={()=>setShowNew(!showNew)}>x</button>
                                                               </div>
+                                                              <ul>{todos.map(todo=> <li>{todo.title}</li>)}</ul>
                                                                  
                                                           </div>) :
                                                           <button className="flex items-center" onClick={handleAdd}>
@@ -136,6 +142,8 @@ const Kanban = () => {
                                                               <DuplicateIcon width={24} height={24} />
                                                             </button>
                                                           </div>
+                                    </div>
+                                   
                                 </div>
                        )}
                         </Droppable>

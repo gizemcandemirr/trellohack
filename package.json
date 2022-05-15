@@ -8,6 +8,7 @@
   "dependencies": {
     "@headlessui/react": "^1.6.1",
     "@heroicons/react": "^1.0.6",
+    "@reduxjs/toolkit": "^1.8.1",
     "@tailwindcss/typography": "^0.5.2",
     "immutability-helper": "^3.1.1",
     "next": "latest",
@@ -16,12 +17,14 @@
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^17.0.2",
+    "react-redux": "^8.0.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/node": "17.0.4",
     "@types/react": "17.0.38",
     "@types/react-beautiful-dnd": "^13.1.2",
+    "@types/uuid": "^8.3.4",
     "autoprefixer": "^10.4.0",
     "postcss": "^8.4.5",
     "prettier": "^2.5.1",

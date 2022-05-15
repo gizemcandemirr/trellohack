@@ -23,7 +23,7 @@ function Home() {
             <BoardBar/>
           </div>
           {/* card kısmı */}
-          <div className='p-4'>
+          <div className='p-3'>
             <Kanban/>
           </div>
         </div>
