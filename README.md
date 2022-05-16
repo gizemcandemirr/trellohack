@@ -2,6 +2,9 @@
 using typescript,nextjs,tailwind, beutiful dnd
 
 
+## application link
+https://trellohack.vercel.app/
+
 ## todo
 1. We'd like you to create a basic copy of trello.com
 2. It can be reloaded everytime we hit refresh, we don't expect you to save board info or anything
