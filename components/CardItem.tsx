@@ -6,6 +6,7 @@ import {
   TrashIcon,
   ChatAlt2Icon,
   PaperClipIcon,
+  PencilIcon
 } from "@heroicons/react/outline";
 import { Draggable } from "react-beautiful-dnd";
 
@@ -13,12 +14,14 @@ type Data={
   data:any;
   index:number;
   handleRemove:(id: string) => void;
+  // handleUpdate:(id: string) => void;
+
 }
 
 function CardItem({ data, index, handleRemove }:Data) {
   
   const[boardData,setBoardData]=useState(data)
-
+  
   
   return (
     <Draggable index={index} draggableId={data.id.toString()}>
@@ -69,7 +72,8 @@ function CardItem({ data, index, handleRemove }:Data) {
                 >
                   <PlusIcon className="w-5 h-5 text-gray-500" />
                 </button> */}
-             <button onClick={() => handleRemove(data.id)}><TrashIcon className="w-8 h-8 text-red-500 text-right"/> </button> 
+               {/* <button onClick={() => handleUpdate(data.id)}><PencilIcon className="w-8 h-8 text-gray-500 text-right"/> </button>  */}
+               <button onClick={() => handleRemove(data.id)}><TrashIcon className="w-8 h-8 text-red-500 text-right"/> </button> 
 
               </li>
             </ul>
