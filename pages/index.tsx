@@ -84,9 +84,12 @@ export default function Home() {
       }
     }
   }
-  // function handleRemove(id) {
-  //   setBoardData(boardData.filter((todo)=> todo.items[0].id !== id))
-  // }
+
+  function handleRemove(id: number) {
+    let data = boardData.filter((todo) => { todo.items = todo.items.filter(item => item.id !== id); return true; })
+    console.log(id, data)
+    setBoardData(data)
+  }
 
   // const handdleAdd= ()=>{
   //    dispatch(add(title))
@@ -148,9 +151,8 @@ export default function Home() {
                                       key={item.id}
                                       data={item}
                                       index={iIndex}
-                                    />     
-                                  {/* <button onClick={() => handleRemove(item.id)}><TrashIcon className="w-5 h-5 text-red-500 text-right"/> </button>  */}
-                                  
+                                      handleRemove={handleRemove}
+                                    />                                       
                                    </> 
                                   );
                                 })}
@@ -188,6 +190,7 @@ export default function Home() {
                   </div>
                 );
               })}
+              
             </div>
           </DragDropContext>
         )}
