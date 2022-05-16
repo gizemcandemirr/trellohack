@@ -12,6 +12,7 @@ import CardItem from '../components/CardItem'
 import BoardData from '../data/board-data.json'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import { KeyboardEvent, useEffect, useState, Fragment } from 'react'
+import { Button, Col, Modal, Row } from 'react-bootstrap'
 
 function createGuidId() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -20,13 +21,14 @@ function createGuidId() {
     return v.toString(16)
   })
 }
-import { Dialog, Transition } from '@headlessui/react'
 
 export default function Home() {
   const [ready, setReady] = useState(false)
   const [boardData, setBoardData] = useState(BoardData)
   const [showForm, setShowForm] = useState(false)
   const [selectedBoard, setSelectedBoard] = useState('')
+  const [selectedItem, setSelectedItem] = useState('')
+
   const [title, setTitle] = useState('')
   let [isOpen, setIsOpen] = useState(false)
 
@@ -121,9 +123,19 @@ export default function Home() {
     setIsOpen(false)
   }
 
-  function openModal() {
+  function openModal(id: string) {
     setIsOpen(true)
+    setSelectedItem(id)
   }
+
+  let selectedModalData = () => {
+    const data = boardData.find((e) => e.id == selectedBoard)?.items.find((i) => i.id == selectedItem)
+    return data;
+  }
+
+ const handleSaveModal = () =>{
+   
+ }
 
   return (
     <Layout>
@@ -177,17 +189,14 @@ export default function Home() {
                                   board.items.map((item, iIndex) => {
                                     return (
                                       <>
-                                      <div onClick={openModal}>
-                                           <CardItem
-                                          key={item.id}
-                                          data={item}
-                                          index={iIndex}
-                                          handleRemove={handleRemove}
-                                        
-                                        />
-                                      </div>
-                                     
-                                        
+                                        <div onClick={() => {openModal(item.id), setSelectedBoard(board.id)}}>
+                                          <CardItem
+                                            key={item.id}
+                                            data={item}
+                                            index={iIndex}
+                                            handleRemove={handleRemove}
+                                          />
+                                        </div>
                                       </>
                                     )
                                   })}
@@ -230,62 +239,8 @@ export default function Home() {
                           </div>
                         )}
                       </Droppable>
-      
-              <Transition appear show={isOpen} as={Fragment} key={board.id}>
-              <Dialog as="div" className="relative z-10" onClose={closeModal}>
-                <Transition.Child
-                  as={Fragment}
-                  enter="ease-out duration-300"
-                  enterFrom="opacity-0"
-                  enterTo="opacity-100"
-                  leave="ease-in duration-200"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <div className="fixed inset-0 bg-black bg-opacity-25" />
-                </Transition.Child>
-
-                <div className="fixed inset-0 overflow-y-auto">
-                  <div className="flex min-h-full items-center justify-center p-4 text-center">
-                    <Transition.Child
-                      as={Fragment}
-                      enter="ease-out duration-300"
-                      enterFrom="opacity-0 scale-95"
-                      enterTo="opacity-100 scale-100"
-                      leave="ease-in duration-200"
-                      leaveFrom="opacity-100 scale-100"
-                      leaveTo="opacity-0 scale-95"
-                    >
-                      <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                       
-                        {board.items.map(i => (
-                         <> 
-                          
-                          <input type="text" value={i.title} className="text-lg font-medium leading-6 text-gray-900 h-12 w-full" />
-                         </> 
-                        ))}
-                       
-
-                        <div className="mt-4">
-                          <button
-                            type="button"
-                            className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                            onClick={closeModal}
-                          >
-                            Close
-                          </button>
-                        </div>
-                      </Dialog.Panel>
-                    </Transition.Child>
-                  </div>
-                </div>
-              </Dialog>
-            </Transition>
-      
                     </div>
                   )
-
-                  
                 })}
                 <div className="relative flex flex-col overflow-hidden rounded-md bg-gray-100 shadow-md">
                   <span
@@ -325,10 +280,36 @@ export default function Home() {
                     <DotsVerticalIcon className="h-5 w-5 text-gray-500" />
                   </h4>
                 </div>
+
+                <Modal
+                  show={isOpen}
+                  onHide={closeModal}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title> {selectedModalData()?.title}</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <Row>
+                      <Col md="12">
+                        <input type="text" value={selectedModalData()?.title} className="h-12 w-full p-2" />
+
+                      </Col>
+                      <Col md="12">
+                        <input type="text" value={selectedModalData()?.tag} className="h-12 w-full p-2" />
+                      </Col>
+                    </Row>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={closeModal}>
+                      Close
+                    </Button>
+                    <Button variant="primary" onClick={handleSaveModal}>Save</Button>
+                  </Modal.Footer>
+                </Modal>
               </div>
             </DragDropContext>
-
-            
           </>
         )}
       </div>

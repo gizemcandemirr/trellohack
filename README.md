@@ -20,6 +20,6 @@ https://trellohack.vercel.app/
 12. We should see the information about the card when we click it (popup, modal etc.)
 13. We should be able to add a new card ✅
 14. We should be able to delete a card ✅
-15. We should be able to add comments to cards, update them, or delete them ✅
+15. We should be able to add comments to cards, * update them, or delete them ✅
 16. We should be able to add tags to cards, update them, or delete them
 17. There will be a search input, this input will search the cards title, tags and comments
