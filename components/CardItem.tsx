@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ChevronDownIcon,
   PlusIcon,
@@ -15,6 +15,10 @@ type Data={
 }
 
 function CardItem({ data, index }:Data) {
+  
+  const[boardData,setBoardData]=useState(data)
+
+  
   return (
     <Draggable index={index} draggableId={data.id.toString()}>
       {(provided) => (
@@ -58,12 +62,14 @@ function CardItem({ data, index }:Data) {
             <ul className="flex space-x-3">
            
               <li>
-                <button
+                {/* <button
                   className="border border-dashed flex items-center w-9 h-9 border-gray-500 justify-center
                     rounded-full"
                 >
                   <PlusIcon className="w-5 h-5 text-gray-500" />
-                </button>
+                </button> */}
+             <button><TrashIcon className="w-5 h-5 text-red-500 text-right"/> </button> 
+
               </li>
             </ul>
           </div>

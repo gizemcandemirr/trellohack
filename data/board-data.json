@@ -1,6 +1,6 @@
 [
     {
-        "name":"Backlog",
+        "name":"Back",
         "items": [
             {
                 "id":1,
@@ -29,7 +29,7 @@
         ]
     },
     {
-        "name":"In Progress",
+        "name":"In Progres",
         "items": [
             {
                 "id":3,
@@ -46,7 +46,7 @@
         ]
     },
     {
-        "name":"In Review",
+        "name":"In rew",
         "items": [
             {
                 "id":4,
@@ -114,5 +114,9 @@
                 ]
             }
         ]
+    },
+    {
+        "name":"",
+        "items": [ ]
     }
 ]

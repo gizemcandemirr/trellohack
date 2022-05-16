@@ -12,6 +12,8 @@ import CardItem from "../components/CardItem";
 import BoardData from "../data/board-data.json";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../store";
+import { add } from "../features/todoSlice";
 
 function createGuidId() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -21,10 +23,14 @@ function createGuidId() {
 }
 
 export default function Home() {
+  const todos =useAppSelector(state => state.todos)
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState(BoardData);
   const [showForm, setShowForm] = useState(false);
   const [selectedBoard, setSelectedBoard] = useState(0);
+  const [title,setTitle]=useState("");
+
+  const dispatch= useAppDispatch();
 
   useEffect(() => {
     if (process.browser) {
@@ -57,6 +63,7 @@ export default function Home() {
         setShowForm(false);
       }
       else {
+       
         const boardId = e.target.attributes['data-id'].value;
         const item:any = {
           id: createGuidId(),
@@ -66,17 +73,25 @@ export default function Home() {
           attachment: 0,
           assignees: []
         }
+       
         let newBoardData = boardData;
         newBoardData[boardId].items.push(item);
+        // dispatch(add(id:item.id, item.title)) 
         setBoardData(newBoardData);
         setShowForm(false);
         e.target.value = '';
+       
       }
     }
   }
-  function handleRemove(id) {
-    setBoardData(boardData.filter((todo)=> todo.items[0].id !== id))
-  }
+  // function handleRemove(id) {
+  //   setBoardData(boardData.filter((todo)=> todo.items[0].id !== id))
+  // }
+
+  // const handdleAdd= ()=>{
+  //    dispatch(add(title))
+  //    setTitle("");
+  // }
 
   return (
     <Layout>
@@ -134,13 +149,15 @@ export default function Home() {
                                       data={item}
                                       index={iIndex}
                                     />     
-                                  <button onClick={() => handleRemove(item.id)}><TrashIcon className="w-5 h-5 text-red-500 text-right"/> </button> 
-
+                                  {/* <button onClick={() => handleRemove(item.id)}><TrashIcon className="w-5 h-5 text-red-500 text-right"/> </button>  */}
+                                  
                                    </> 
                                   );
                                 })}
+
                               {provided.placeholder}
                             </div>
+                         
                             
                             {
                               showForm && selectedBoard === bIndex ? (
@@ -148,7 +165,10 @@ export default function Home() {
                                   <textarea className="border-gray-300 rounded focus:ring-purple-400 w-full" 
                                   rows={3} placeholder="Task info" 
                                   data-id={bIndex}
+                                  name="title"
+                                  onChange={(e)=> setTitle(e.currentTarget.value)}
                                   onKeyDown={(e) => onTextAreaKeyPress(e)}/>
+                                  {/* <button onClick={handdleAdd}>save</button> */}
                                   <button onClick={()=> setShowForm(false)} ><XCircleIcon className="w-5 h-5 text-red-500"/></button>
                                 </div>
                               ): (
