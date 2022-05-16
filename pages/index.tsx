@@ -84,6 +84,7 @@ export default function Home() {
               priority: number
               title: string
               chat: number
+              tag: string
               attachment: number
               assignees: {
                 avt: string
@@ -129,13 +130,19 @@ export default function Home() {
   }
 
   let selectedModalData = () => {
-    const data = boardData.find((e) => e.id == selectedBoard)?.items.find((i) => i.id == selectedItem)
-    return data;
+    const data = boardData
+      .find((e) => e.id == selectedBoard)
+      ?.items.find((i) => i.id == selectedItem)
+    return data
   }
 
- const handleSaveModal = () =>{
-   
- }
+  const handleSaveModal = (item: any) => {
+    let data = boardData.filter((todo) => {
+      if (todo.id == selectedBoard) todo.items.every((i) => (i = item))
+      return true
+    })
+    setBoardData(data)
+  }
 
   return (
     <Layout>
@@ -189,7 +196,12 @@ export default function Home() {
                                   board.items.map((item, iIndex) => {
                                     return (
                                       <>
-                                        <div onClick={() => {openModal(item.id), setSelectedBoard(board.id)}}>
+                                        <div
+                                          onClick={() => {
+                                            openModal(item.id),
+                                              setSelectedBoard(board.id)
+                                          }}
+                                        >
                                           <CardItem
                                             key={item.id}
                                             data={item}
@@ -293,11 +305,21 @@ export default function Home() {
                   <Modal.Body>
                     <Row>
                       <Col md="12">
-                        <input type="text" value={selectedModalData()?.title} className="h-12 w-full p-2" />
-
+                        <input
+                          type="text"
+                          name="title"
+                          value={selectedModalData()?.title}
+                          onChange={e=> setTitle(e.currentTarget.value)}
+                          className="h-12 w-full p-2"
+                        />
                       </Col>
                       <Col md="12">
-                        <input type="text" value={selectedModalData()?.tag} className="h-12 w-full p-2" />
+                        <input
+                          type="text"
+                          name="tag"
+                          value={selectedModalData()?.tag}
+                          className="h-12 w-full p-2"
+                        />
                       </Col>
                     </Row>
                   </Modal.Body>
@@ -305,7 +327,9 @@ export default function Home() {
                     <Button variant="secondary" onClick={closeModal}>
                       Close
                     </Button>
-                    <Button variant="primary" onClick={handleSaveModal}>Save</Button>
+                    <Button variant="primary" onClick={() => handleSaveModal({title})}>
+                      Save
+                    </Button>
                   </Modal.Footer>
                 </Modal>
               </div>
