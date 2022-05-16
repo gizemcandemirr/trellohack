@@ -4,7 +4,7 @@ export interface Cards{
     linkCount:number;
     body:string[];
     date:string;
-    type:string;
+ 
 }
 
 export interface Dropdown{
