@@ -146,7 +146,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="flex h-screen flex-col bg-hero bg-cover p-10">
+      <div className="flex  flex-col bg-hero bg-cover p-10">
         {/* Board header */}
         <div className="flex flex-initial justify-between">
           <div className="flex items-center">
@@ -162,7 +162,7 @@ export default function Home() {
         {ready && (
           <>
             <DragDropContext onDragEnd={onDragEnd}>
-              <div className="my-5 grid grid-cols-4 gap-5">
+              <div className="my-5 flex space-x-6">
                 {boardData.map((board, bIndex) => {
                   return (
                     <div key={board.name}>
@@ -254,9 +254,9 @@ export default function Home() {
                     </div>
                   )
                 })}
-                <div className="relative flex flex-col overflow-hidden rounded-md bg-gray-100 shadow-md">
+                <div className="relative flex flex-col overflow-hidden rounded-md bg-gray-100 shadow-md h-fit ">
                   <span
-                    className="absolute inset-x-0 top-0 h-1 w-full
+                    className="absolute inset-x-0 top-0 h-fit w-full
                           bg-gradient-to-r from-pink-700 to-red-200"
                   ></span>
                   <h4 className=" mb-2 flex items-center justify-between p-3">

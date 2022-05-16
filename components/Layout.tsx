@@ -6,7 +6,7 @@ type Children={
 }
 function Layout({children}:Children) {
     return (
-        <div className="min-w-full min-h-screen  h-screen overflow-hidden bg-blue-100">
+        <div className="min-w-full h-screen overflow-x  bg-blue-100">
             <AppBar/>
             <BoardBar/>
             <main className="">
