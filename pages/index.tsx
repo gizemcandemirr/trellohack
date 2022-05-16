@@ -5,6 +5,8 @@ import {
   PlusIcon,
   DotsVerticalIcon,
   PlusCircleIcon,
+  XCircleIcon,
+  TrashIcon,
 } from "@heroicons/react/outline";
 import CardItem from "../components/CardItem";
 import BoardData from "../data/board-data.json";
@@ -72,6 +74,9 @@ export default function Home() {
       }
     }
   }
+  function handleRemove(id) {
+    setBoardData(boardData.filter((todo)=> todo.items[0].id !== id))
+  }
 
   return (
     <Layout>
@@ -123,11 +128,15 @@ export default function Home() {
                               {board.items.length > 0 &&
                                 board.items.map((item, iIndex) => {
                                   return (
-                                    <CardItem
+                                   <>
+                                   <CardItem
                                       key={item.id}
                                       data={item}
                                       index={iIndex}
-                                    />
+                                    />     
+                                  <button onClick={() => handleRemove(item.id)}><TrashIcon className="w-5 h-5 text-red-500 text-right"/> </button> 
+
+                                   </> 
                                   );
                                 })}
                               {provided.placeholder}
@@ -135,11 +144,12 @@ export default function Home() {
                             
                             {
                               showForm && selectedBoard === bIndex ? (
-                                <div className="p-3">
+                                <div className="p-3 flex justify-between">
                                   <textarea className="border-gray-300 rounded focus:ring-purple-400 w-full" 
                                   rows={3} placeholder="Task info" 
                                   data-id={bIndex}
                                   onKeyDown={(e) => onTextAreaKeyPress(e)}/>
+                                  <button onClick={()=> setShowForm(false)} ><XCircleIcon className="w-5 h-5 text-red-500"/></button>
                                 </div>
                               ): (
                                 <button

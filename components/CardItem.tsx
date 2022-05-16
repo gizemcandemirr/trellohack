@@ -3,6 +3,7 @@ import {
   ChevronDownIcon,
   PlusIcon,
   DotsVerticalIcon,
+  TrashIcon,
   ChatAlt2Icon,
   PaperClipIcon,
 } from "@heroicons/react/outline";
