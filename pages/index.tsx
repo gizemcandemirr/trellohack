@@ -30,7 +30,7 @@ export default function Home() {
     }
   }, []);
 
-  const onDragEnd = (re) => {
+  const onDragEnd = (re:any) => {
     if (!re.destination) return;
     let newBoardData = boardData;
     var dragItem =
@@ -47,7 +47,7 @@ export default function Home() {
     setBoardData(newBoardData);
   };
 
-  const onTextAreaKeyPress = (e) => {
+  const onTextAreaKeyPress = (e:any) => {
     if(e.keyCode === 13) //Enter
     {
       const val = e.target.value;
@@ -56,7 +56,7 @@ export default function Home() {
       }
       else {
         const boardId = e.target.attributes['data-id'].value;
-        const item = {
+        const item:any = {
           id: createGuidId(),
           title: val,
           priority: 0,
@@ -127,7 +127,6 @@ export default function Home() {
                                       key={item.id}
                                       data={item}
                                       index={iIndex}
-                                      className="m-3"
                                     />
                                   );
                                 })}

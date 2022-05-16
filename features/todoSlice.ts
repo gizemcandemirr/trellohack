@@ -16,9 +16,7 @@ const todoSlice= createSlice({
             const newTodo={ title:action.payload, completed:false};
             state.push(newTodo)
         },
-        remove:(state,action: PayloadAction<string>)=>{
-            return state.filter((todo) => todo.id !==action.payload)
-        }
+        remove:(state,action: PayloadAction<string>)=>{}
     }
 })
 

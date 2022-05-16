@@ -8,7 +8,12 @@ import {
 } from "@heroicons/react/outline";
 import { Draggable } from "react-beautiful-dnd";
 
-function CardItem({ data, index }) {
+type Data={
+  data:any;
+  index:number;
+}
+
+function CardItem({ data, index }:Data) {
   return (
     <Draggable index={index} draggableId={data.id.toString()}>
       {(provided) => (
