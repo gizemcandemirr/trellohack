@@ -1,5 +1,5 @@
-import Head from "next/head";
-import Layout from "../components/Layout";
+import Head from 'next/head'
+import Layout from '../components/Layout'
 import {
   ChevronDownIcon,
   PlusIcon,
@@ -7,86 +7,113 @@ import {
   PlusCircleIcon,
   XCircleIcon,
   TrashIcon,
-} from "@heroicons/react/outline";
-import CardItem from "../components/CardItem";
-import BoardData from "../data/board-data.json";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../store";
-import { add } from "../features/todoSlice";
+} from '@heroicons/react/outline'
+import CardItem from '../components/CardItem'
+import BoardData from '../data/board-data.json'
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
+import { KeyboardEvent, useEffect, useState } from 'react'
 
 function createGuidId() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == 'x' ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
 }
 
 export default function Home() {
-  const todos =useAppSelector(state => state.todos)
-  const [ready, setReady] = useState(false);
-  const [boardData, setBoardData] = useState(BoardData);
-  const [showForm, setShowForm] = useState(false);
-  const [selectedBoard, setSelectedBoard] = useState(0);
-  const [title,setTitle]=useState("");
-
-  const dispatch= useAppDispatch();
+  const [ready, setReady] = useState(false)
+  const [boardData, setBoardData] = useState(BoardData)
+  const [showForm, setShowForm] = useState(false)
+  const [selectedBoard, setSelectedBoard] = useState("")
+  const [title, setTitle] = useState('')
 
   useEffect(() => {
     if (process.browser) {
-      setReady(true);
+      setReady(true)
     }
-  }, []);
+  }, [])
 
-  const onDragEnd = (re:any) => {
-    if (!re.destination) return;
-    let newBoardData = boardData;
+  const onDragEnd = (re: any) => {
+    if (!re.destination) return
+    let newBoardData = boardData
     var dragItem =
-      newBoardData[parseInt(re.source.droppableId)].items[re.source.index];
+      newBoardData[parseInt(re.source.droppableId)].items[re.source.index]
     newBoardData[parseInt(re.source.droppableId)].items.splice(
       re.source.index,
       1
-    );
+    )
     newBoardData[parseInt(re.destination.droppableId)].items.splice(
       re.destination.index,
       0,
       dragItem
-    );
-    setBoardData(newBoardData);
-  };
+    )
+    setBoardData(newBoardData)
+  }
 
-  const onTextAreaKeyPress = (e:any) => {
-    if(e.keyCode === 13) //Enter
-    {
-      const val = e.target.value;
-      if(val.length === 0) {
-        setShowForm(false);
-      }
-      else {
-       
-        const boardId = e.target.attributes['data-id'].value;
-        const item:any = {
+  const onTextAreaKeyPress = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>,
+    bid: string|null
+  ) => {
+    if (e.key === 'Enter') {
+      //Enter
+      const val = e.currentTarget.value
+      if (val.length === 0) {
+        setShowForm(false)
+      } else {
+        const boardId = bid ?? createGuidId()
+        const item: any = {
           id: createGuidId(),
           title: val,
           priority: 0,
-          chat:0,
+          chat: 0,
           attachment: 0,
-          assignees: []
+          assignees: [],
         }
-       
-        let newBoardData = boardData;
-        newBoardData[boardId].items.push(item);
-        // dispatch(add(id:item.id, item.title)) 
-        setBoardData(newBoardData);
-        setShowForm(false);
-        e.target.value = '';
-       
+
+        if(bid === null) {
+          let newBoardData: {
+            id: string
+            name: string
+            items: {
+              id: string
+              priority: number
+              title: string
+              chat: number
+              attachment: number
+              assignees: {
+                avt: string
+              }[]
+            }[]
+          } = {
+            id: boardId,
+            name: '',
+            items: [],
+          }
+          //if(boardId)
+          newBoardData.items.push(item)
+          // dispatch(add(id:item.id, item.title))
+          setBoardData([...boardData, newBoardData])
+        } else 
+       {
+          let data = boardData.filter((todo) => {
+            if(todo.id === bid)
+              todo.items.push(item)
+            return true
+          })
+          setBoardData(data)
+        }
+        setShowForm(false)
+        e.currentTarget.value = ''
       }
     }
   }
 
-  function handleRemove(id: number) {
-    let data = boardData.filter((todo) => { todo.items = todo.items.filter(item => item.id !== id); return true; })
+  function handleRemove(id: string) {
+    let data = boardData.filter((todo) => {
+      todo.items = todo.items.filter((item) => item.id !== id)
+      return true
+    })
     console.log(id, data)
     setBoardData(data)
   }
@@ -98,24 +125,22 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="p-10 flex flex-col h-screen">
+      <div className="flex h-screen flex-col bg-hero bg-cover p-10">
         {/* Board header */}
         <div className="flex flex-initial justify-between">
           <div className="flex items-center">
             <h4 className="text-4xl font-bold text-gray-600">Studio Board</h4>
             <ChevronDownIcon
-              className="w-9 h-9 text-gray-500 rounded-full
-            p-1 bg-white ml-5 shadow-xl"
+              className="ml-5 h-9 w-9 rounded-full
+            bg-white p-1 text-gray-500 shadow-xl"
             />
           </div>
-
-        
         </div>
 
         {/* Board columns */}
         {ready && (
           <DragDropContext onDragEnd={onDragEnd}>
-            <div className="grid grid-cols-4 gap-5 my-5">
+            <div className="my-5 grid grid-cols-4 gap-5">
               {boardData.map((board, bIndex) => {
                 return (
                   <div key={board.name}>
@@ -126,76 +151,122 @@ export default function Home() {
                           ref={provided.innerRef}
                         >
                           <div
-                            className={`bg-gray-100 rounded-md shadow-md
-                            flex flex-col relative overflow-hidden
-                            ${snapshot.isDraggingOver && "bg-green-100"}`}
+                            className={`relative flex flex-col
+                            overflow-hidden rounded-md bg-gray-100 shadow-md
+                            ${snapshot.isDraggingOver && 'bg-green-100'}`}
                           >
                             <span
-                              className="w-full h-1 bg-gradient-to-r from-pink-700 to-red-200
-                          absolute inset-x-0 top-0"
+                              className="absolute inset-x-0 top-0 h-1 w-full
+                          bg-gradient-to-r from-pink-700 to-red-200"
                             ></span>
-                            <h4 className=" p-3 flex justify-between items-center mb-2">
+                            <h4 className=" mb-2 flex items-center justify-between p-3">
                               <span className="text-2xl text-gray-600">
                                 {board.name}
                               </span>
-                              <DotsVerticalIcon className="w-5 h-5 text-gray-500" />
+                              <DotsVerticalIcon className="h-5 w-5 text-gray-500" />
                             </h4>
 
-                            <div className="overflow-y-auto overflow-x-hidden h-auto"
-                            style={{maxHeight:'calc(100vh - 290px)'}}>
+                            <div
+                              className="h-auto overflow-y-auto overflow-x-hidden"
+                              style={{ maxHeight: 'calc(100vh - 290px)' }}
+                            >
                               {board.items.length > 0 &&
                                 board.items.map((item, iIndex) => {
                                   return (
-                                   <>
-                                   <CardItem
-                                      key={item.id}
-                                      data={item}
-                                      index={iIndex}
-                                      handleRemove={handleRemove}
-                                    />                                       
-                                   </> 
-                                  );
+                                    <>
+                                      <CardItem
+                                        key={item.id}
+                                        data={item}
+                                        index={iIndex}
+                                        handleRemove={handleRemove}
+                                      />
+                                    </>
+                                  )
                                 })}
 
                               {provided.placeholder}
                             </div>
-                         
-                            
-                            {
-                              showForm && selectedBoard === bIndex ? (
-                                <div className="p-3 flex justify-between">
-                                  <textarea className="border-gray-300 rounded focus:ring-purple-400 w-full" 
-                                  rows={3} placeholder="Task info" 
-                                  data-id={bIndex}
+
+                            {showForm && selectedBoard === board.id ? (
+                              <div className="flex justify-between p-3">
+                                <textarea
+                                  className="w-full rounded border-gray-300 focus:ring-purple-400"
+                                  rows={3}
+                                  placeholder="Task info"
                                   name="title"
-                                  onChange={(e)=> setTitle(e.currentTarget.value)}
-                                  onKeyDown={(e) => onTextAreaKeyPress(e)}/>
-                                  {/* <button onClick={handdleAdd}>save</button> */}
-                                  <button onClick={()=> setShowForm(false)} ><XCircleIcon className="w-5 h-5 text-red-500"/></button>
-                                </div>
-                              ): (
-                                <button
-                                  className="flex justify-center items-center my-3 space-x-2 text-lg"
-                                  onClick={() => {setSelectedBoard(bIndex); setShowForm(true);}}
-                                >
-                                  <span>Add task</span>
-                                  <PlusCircleIcon className="w-5 h-5 text-gray-500" />
+                                  onChange={(e) =>
+                                    setTitle(e.currentTarget.value)
+                                  }
+                                  onKeyDown={(e) =>
+                                    onTextAreaKeyPress(e, board.id)
+                                  }
+                                />
+                                {/* <button onClick={handdleAdd}>save</button> */}
+                                <button onClick={() => setShowForm(false)}>
+                                  <XCircleIcon className="h-5 w-5 text-red-500" />
                                 </button>
-                              )
-                            }
+                              </div>
+                            ) : (
+                              <button
+                                className="my-3 flex items-center justify-center space-x-2 text-lg"
+                                onClick={() => {
+                                  setSelectedBoard(board.id)
+                                  setShowForm(true)
+                                }}
+                              >
+                                <span>Add task</span>
+                                <PlusCircleIcon className="h-5 w-5 text-gray-500" />
+                              </button>
+                            )}
                           </div>
                         </div>
                       )}
                     </Droppable>
                   </div>
-                );
+                )
               })}
-              
+              <div className="relative flex flex-col overflow-hidden rounded-md bg-gray-100 shadow-md">
+                <span
+                  className="absolute inset-x-0 top-0 h-1 w-full
+                          bg-gradient-to-r from-pink-700 to-red-200"
+                ></span>
+                <h4 className=" mb-2 flex items-center justify-between p-3">
+                  <span className="text-2xl text-gray-600">
+                    <button
+                      className="my-3 flex items-center justify-center space-x-2 text-lg"
+                      onClick={() => {
+                        setShowForm(true)
+                        setSelectedBoard("")
+                      }}
+                    >
+                      <span>Add task</span>
+                      <PlusCircleIcon className="h-5 w-5 text-gray-500" />
+                    </button>
+
+                    {showForm && selectedBoard === "" && (
+                      <div className="flex justify-between p-3">
+                        <textarea
+                          className="w-full rounded border-gray-300 focus:ring-purple-400"
+                          rows={3}
+                          placeholder="Task info"
+                          name="title"
+                          onChange={(e) => setTitle(e.currentTarget.value)}
+                          onKeyDown={(e) => onTextAreaKeyPress(e, null)}
+                        />
+                        {/* <button onClick={handdleAdd}>save</button> */}
+                        <button onClick={() => setShowForm(false)}>
+                          <XCircleIcon className="h-5 w-5 text-red-500" />
+                        </button>
+                      </div>
+                    )}
+                  </span>
+                  <DotsVerticalIcon className="h-5 w-5 text-gray-500" />
+                </h4>
+              </div>
             </div>
           </DragDropContext>
         )}
       </div>
     </Layout>
-  );
+  )
 }
-

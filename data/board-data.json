@@ -1,9 +1,10 @@
 [
     {
+        "id": "sdadsadsa",
         "name":"Back",
         "items": [
             {
-                "id":1,
+                "id":"1",
                 "priority": 0,
                 "title": "Company website redesign.",
                 "chat": 1,
@@ -15,7 +16,7 @@
                 ]
             },
             {
-                "id":2,
+                "id":"2",
                 "priority": 2,
                 "title": "Mobile app login process prototype.",
                 "chat": 10,
@@ -29,10 +30,11 @@
         ]
     },
     {
+        "id": "gdfgfdgfdes",
         "name":"In Progres",
         "items": [
             {
-                "id":3,
+                "id":"3",
                 "priority": 1,
                 "title": "Research and strategy for upcoming project.",
                 "chat": 0,
@@ -46,10 +48,11 @@
         ]
     },
     {
+        "id": "waewedasewa",
         "name":"In rew",
         "items": [
             {
-                "id":4,
+                "id":"4",
                 "priority": 2,
                 "title": "Dashboard layout redesign.",
                 "chat": 13,
@@ -61,7 +64,7 @@
                 ]
             },
             {
-                "id":5,
+                "id":"5",
                 "priority": 0,
                 "title": "Social media posts",
                 "chat": 0,
@@ -75,10 +78,11 @@
         ]
     },
     {
+        "id": "dwsadwadawdwas",
         "name":"Completed",
         "items": [
             {
-                "id":6,
+                "id":"6",
                 "priority": 0,
                 "title": "Review client spec document and give feedback.",
                 "chat": 13,
@@ -90,7 +94,7 @@
                 ]
             },
             {
-                "id":7,
+                "id":"7",
                 "priority": 1,
                 "title": "Navigation designs",
                 "chat": 0,
@@ -102,7 +106,7 @@
                 ]
             },
             {
-                "id":8,
+                "id":"8",
                 "priority": 2,
                 "title": "Create style guide based on previous feedback",
                 "chat": 5,

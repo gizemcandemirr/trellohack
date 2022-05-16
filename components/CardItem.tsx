@@ -12,7 +12,7 @@ import { Draggable } from "react-beautiful-dnd";
 type Data={
   data:any;
   index:number;
-  handleRemove:(id: number) => void;
+  handleRemove:(id: string) => void;
 }
 
 function CardItem({ data, index, handleRemove }:Data) {
@@ -69,7 +69,7 @@ function CardItem({ data, index, handleRemove }:Data) {
                 >
                   <PlusIcon className="w-5 h-5 text-gray-500" />
                 </button> */}
-             <button onClick={() => handleRemove(data.id)}><TrashIcon className="w-5 h-5 text-red-500 text-right"/> </button> 
+             <button onClick={() => handleRemove(data.id)}><TrashIcon className="w-8 h-8 text-red-500 text-right"/> </button> 
 
               </li>
             </ul>
