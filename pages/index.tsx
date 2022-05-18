@@ -13,9 +13,7 @@ import BoardData from '../data/board-data.json'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import { KeyboardEvent, useEffect, useState, Fragment } from 'react'
 import { Button, Col, Modal, Row } from 'react-bootstrap'
-import customModal from "../components/customModal"
 import Header from '../components/Header'
-
 
 function createGuidId() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -31,8 +29,8 @@ export default function Home() {
   const [showForm, setShowForm] = useState(false)
   const [selectedBoard, setSelectedBoard] = useState('')
   const [selectedItem, setSelectedItem] = useState('')
-  const [title, setTitle] = useState(null)
 
+  const [title, setTitle] = useState('')
   let [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
@@ -132,7 +130,7 @@ export default function Home() {
     setSelectedItem(id)
   }
 
- function selectedModalData (){
+  let selectedModalData = () => {
     const data = boardData
       .find((e) => e.id == selectedBoard)
       ?.items.find((i) => i.id == selectedItem)
@@ -151,7 +149,7 @@ export default function Home() {
     <Layout>
       <div className="flex  flex-col bg-hero bg-cover p-10">
         {/* Board header */}
-         <Header/>
+      <Header/>
 
         {/* Board columns */}
         {ready && (
@@ -287,8 +285,46 @@ export default function Home() {
                     <DotsVerticalIcon className="h-5 w-5 text-gray-500" />
                   </h4>
                 </div>
-              
-                
+
+                <Modal
+                  show={isOpen}
+                  onHide={closeModal}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title> {selectedModalData()?.title}</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <Row>
+                      <Col md="12">
+                        <input
+                          type="text"
+                          name="title"
+                          value={selectedModalData()?.title}
+                          onChange={e=> setTitle(e.currentTarget.value)}
+                          className="h-12 w-full p-2"
+                        />
+                      </Col>
+                      <Col md="12">
+                        <input
+                          type="text"
+                          name="tag"
+                          value={selectedModalData()?.tag}
+                          className="h-12 w-full p-2"
+                        />
+                      </Col>
+                    </Row>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={closeModal}>
+                      Close
+                    </Button>
+                    <Button variant="primary" onClick={() => handleSaveModal({title})}>
+                      Save
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
               </div>
             </DragDropContext>
           </>
