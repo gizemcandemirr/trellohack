@@ -1,6 +1,5 @@
-# Trello Hack 
-using typescript,nextjs,tailwind, beutiful dnd
-
+# What is the Trello?
+* Trello is a visual tool for organizing your work and life. You can organize all your projects at work, at home, or anywhere in between.
 
 ## application link
 https://trellohack.vercel.app/
