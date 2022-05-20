@@ -7,6 +7,13 @@
 ## application link
 https://trellohack.vercel.app/
 
+## What's Next?
+1. Fix bugs
+2. SigIn/SignUp
+3. When the refresh, hold datas
+4. Modals schema will be create for Typescript
+5. Need to state management, and database (Redux,Firebase)
+
 ## todo
 1. We'd like you to create a basic copy of trello.com ✅
 2. It can be reloaded everytime we hit refresh, we don't expect you to save board info or anything ✅
