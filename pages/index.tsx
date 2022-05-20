@@ -129,7 +129,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="flex  flex-col bg-hero bg-cover p-10">
+      <div className="flex  flex-col p-10">
         {/* Board header */}
       <Header/>
 
