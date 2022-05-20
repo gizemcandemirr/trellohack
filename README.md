@@ -5,7 +5,8 @@
 ![](https://github.com/mhndsbgyn/trellohack/blob/main/public/trello.gif)
 
 ## application link
-https://trellohack.vercel.app/
+[Demo](https://trellohack.vercel.app/ "Trello Demo")
+
 
 ## What's Next?
 1. Fix bugs
