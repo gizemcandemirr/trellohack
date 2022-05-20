@@ -4,7 +4,6 @@
 ## ❤️ My Trello App Documentation
 ![](https://github.com/mhndsbgyn/trellohack/blob/main/public/trello.gif)
 
-## application link
 [Demo](https://trellohack.vercel.app/ "Trello Demo")
 
 
