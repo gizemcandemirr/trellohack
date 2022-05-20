@@ -1,11 +1,18 @@
 # What is the Trello?
 * Trello is a visual tool for organizing your work and life. You can organize all your projects at work, at home, or anywhere in between.
 
-## My Trello App Documentation
+## ❤️ My Trello App Documentation
+![](https://github.com/mhndsbgyn/trellohack/blob/main/public/trello.gif)
+
+[Demo](https://trellohack.vercel.app/ "Trello Demo")
 
 
-## application link
-https://trellohack.vercel.app/
+## What's Next?
+1. Fix bugs
+2. SigIn/SignUp
+3. When the refresh, hold datas
+4. Modals schema will be create for Typescript
+5. Need to state management, and database (Redux,Firebase)
 
 ## todo
 1. We'd like you to create a basic copy of trello.com ✅
