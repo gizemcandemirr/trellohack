@@ -14,7 +14,6 @@ const NewCard = ({ShowForm}:Props) => {
       rows={3}
       placeholder="Task info"
       name="title"
-      onKeyDown={(e) => onTextAreaKeyPress(e, null)}
     />
     {/* <button onClick={handdleAdd}>save</button> */}
     <button onClick={ShowForm}>

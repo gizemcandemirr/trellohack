@@ -1,6 +1,6 @@
 import React from 'react';
-import AppBar from './bar/AppBar';
-import BoardBar from './bar/BoardBar';
+import AppBar from '../bar/AppBar';
+import BoardBar from '../bar/BoardBar';
 type Children={
     children:any
 }

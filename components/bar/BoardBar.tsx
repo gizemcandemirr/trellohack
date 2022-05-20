@@ -1,6 +1,6 @@
 import React from 'react'
 import { Dropdown } from '../../typings'
-import CustomDropdown from '../customDropdown'
+import CustomDropdown from '../../components/dropdown/customDropdown'
 import { StarIcon, PlusIcon, CalendarIcon, LightningBoltIcon,CursorClickIcon,FilterIcon, DotsVerticalIcon} from '@heroicons/react/outline'
 
 type Props = {}

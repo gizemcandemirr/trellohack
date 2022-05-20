@@ -1,19 +1,17 @@
 import Head from 'next/head'
-import Layout from '../components/Layout'
+import Layout from '../components/layout/Layout'
 import {
-  ChevronDownIcon,
-  PlusIcon,
   DotsVerticalIcon,
   PlusCircleIcon,
   XCircleIcon,
   TrashIcon,
 } from '@heroicons/react/outline'
-import CardItem from '../components/CardItem'
+import CardItem from '../components/card/CardItem'
 import BoardData from '../data/board-data.json'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import { KeyboardEvent, useEffect, useState, Fragment } from 'react'
 import { Button, Col, Modal, Row } from 'react-bootstrap'
-import Header from '../components/Header'
+import Header from '../components/layout/Header'
 
 function createGuidId() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

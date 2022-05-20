@@ -1,6 +1,6 @@
 import React from 'react'
 import { MenuIcon, InformationCircleIcon, BellIcon} from '@heroicons/react/outline'
-import CustomDropdown from '../customDropdown'
+import CustomDropdown from '../dropdown/customDropdown'
 import { Dropdown } from '../../typings'
 
 

@@ -14,13 +14,11 @@ const customModal = (props: Props) => {
 
   return (
     <Modal
-    show={props.isOpen}
-    onHide={props.closeModal}
     backdrop="static"
     keyboard={false}
   >
     <Modal.Header closeButton>
-      <Modal.Title> {selectedModalData()?.title}</Modal.Title>
+      <Modal.Title> </Modal.Title>
     </Modal.Header>
     <Modal.Body>
       <Row>
@@ -28,8 +26,6 @@ const customModal = (props: Props) => {
           <input
             type="text"
             name="title"
-            value={selectedModalData()?.title}
-            onChange={e=> setTitle(e.currentTarget.value)}
             className="h-12 w-full p-2"
           />
         </Col>
@@ -37,14 +33,14 @@ const customModal = (props: Props) => {
           <input
             type="text"
             name="tag"
-            value={selectedModalData()?.tag}
+          
             className="h-12 w-full p-2"
           />
         </Col>
       </Row>
     </Modal.Body>
     <Modal.Footer>
-      <Button variant="secondary" onClick={props.closeModal}>
+      <Button variant="secondary">
         Close
       </Button>
       <Button variant="primary" onClick={() => handleSaveModal()}>
