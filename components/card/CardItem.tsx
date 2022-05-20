@@ -9,6 +9,7 @@ import {
   PencilIcon
 } from "@heroicons/react/outline";
 import { Draggable } from "react-beautiful-dnd";
+import { Button, Col, Modal, Row } from "react-bootstrap";
 
 type Data={
   data:any;
@@ -21,7 +22,28 @@ type Data={
 function CardItem({ data, index, handleRemove }:Data) {
   
   const[boardData,setBoardData]=useState(data)
-  
+  const [tag, setTag] =useState(data.tag);
+  const [title, setTitle] =useState(data.title);
+  const [selectedBoard, setSelectedBoard] = useState('')
+  const [selectedItem, setSelectedItem] = useState('')
+
+  console.log("tag", data.tag)
+
+  let [isOpen, setIsOpen] = useState(false)
+  function openModal() {
+    setIsOpen(true)
+  }
+  function closeModal() {
+    setIsOpen(false)
+  }
+  let selectedModalData = () => {
+    const datalist = boardData
+      .find((e:any) => e.id == selectedBoard)
+      ?.items.find((i:any) => i.id == selectedItem)
+    return datalist
+  }
+
+  console.log(selectedModalData)
   
   return (
     <Draggable index={index} draggableId={data.id.toString()}>
@@ -72,12 +94,57 @@ function CardItem({ data, index, handleRemove }:Data) {
                 >
                   <PlusIcon className="w-5 h-5 text-gray-500" />
                 </button> */}
-               {/* <button onClick={() => handleUpdate(data.id)}><PencilIcon className="w-8 h-8 text-gray-500 text-right"/> </button>  */}
+               <button onClick={openModal}><PencilIcon className="w-8 h-8 text-gray-500 text-right"/> </button> 
                <button onClick={() => handleRemove(data.id)}><TrashIcon className="w-8 h-8 text-red-500 text-right"/> </button> 
 
               </li>
             </ul>
           </div>
+
+
+          <Modal
+    backdrop="static"
+    keyboard={false}
+    show={isOpen}
+    onHide={closeModal}
+  >
+    <Modal.Header closeButton>
+      <Modal.Title> </Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      <Row>
+        <Col
+         md="12">
+           <label>Title:</label>
+          <input
+            type="text"
+            name="title"
+            value={title}
+            onChange={(e)=> setTitle(e.target.value)}
+            className="h-12 w-full p-2"
+          />
+        </Col>
+        <Col md="12">
+        <label>Tag:</label> 
+          <input
+            type="text"
+            name="tag"
+            value={tag}
+            onChange={(e)=> setTag(e.target.value)}
+            className="h-12 w-full p-2"
+          />
+        </Col>
+      </Row>
+    </Modal.Body>
+    <Modal.Footer>
+      <Button variant="secondary">
+        Close
+      </Button>
+      <Button variant="primary">
+        Save
+      </Button>
+    </Modal.Footer>
+  </Modal>
         </div>
         
       )}

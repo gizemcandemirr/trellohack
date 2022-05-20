@@ -27,9 +27,7 @@ export default function Home() {
   const [showForm, setShowForm] = useState(false)
   const [selectedBoard, setSelectedBoard] = useState('')
   const [selectedItem, setSelectedItem] = useState('')
-
   const [title, setTitle] = useState('')
-  let [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     if (process.browser) {
@@ -119,21 +117,7 @@ export default function Home() {
     setBoardData(data)
   }
 
-  function closeModal() {
-    setIsOpen(false)
-  }
-
-  function openModal(id: string) {
-    setIsOpen(true)
-    setSelectedItem(id)
-  }
-
-  let selectedModalData = () => {
-    const data = boardData
-      .find((e) => e.id == selectedBoard)
-      ?.items.find((i) => i.id == selectedItem)
-    return data
-  }
+  
 
   const handleSaveModal = (item: any) => {
     let data = boardData.filter((todo) => {
@@ -187,19 +171,14 @@ export default function Home() {
                                   board.items.map((item, iIndex) => {
                                     return (
                                       <>
-                                        <div
-                                          onClick={() => {
-                                            openModal(item.id),
-                                              setSelectedBoard(board.id)
-                                          }}
-                                        >
+                                       
                                           <CardItem
                                             key={item.id}
                                             data={item}
                                             index={iIndex}
                                             handleRemove={handleRemove}
                                           />
-                                        </div>
+                                       
                                       </>
                                     )
                                   })}
@@ -284,45 +263,6 @@ export default function Home() {
                   </h4>
                 </div>
 
-                <Modal
-                  show={isOpen}
-                  onHide={closeModal}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title> {selectedModalData()?.title}</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <Row>
-                      <Col md="12">
-                        <input
-                          type="text"
-                          name="title"
-                          value={selectedModalData()?.title}
-                          onChange={e=> setTitle(e.currentTarget.value)}
-                          className="h-12 w-full p-2"
-                        />
-                      </Col>
-                      <Col md="12">
-                        <input
-                          type="text"
-                          name="tag"
-                          value={selectedModalData()?.tag}
-                          className="h-12 w-full p-2"
-                        />
-                      </Col>
-                    </Row>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={closeModal}>
-                      Close
-                    </Button>
-                    <Button variant="primary" onClick={() => handleSaveModal({title})}>
-                      Save
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
               </div>
             </DragDropContext>
           </>
